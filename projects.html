@@ -43,7 +43,7 @@
     </div>
 
     <div class="project-card">
-      <img src="images/project3.jpg" alt="Project 3">
+      <img src="cover.jpg" alt="Project 3">
       <h3>Solving for X</h3>
       <p>Podcast initiative that spanned over 13 episodes exploring the mind-bending corners of STEM and Arts</p>
     </div>
@@ -58,7 +58,7 @@
     </div>
 
     <div class="work-card">
-      <h3>Fatima – Research(Ongoing) in mathematical computation and life systems</h3>
+      <h3></h3>
       <p> Recreated a simulation of Conway's Game of Life to analyze </p>
       <a href="#" target="_blank">Read More</a>
     </div>
@@ -75,9 +75,129 @@
 
 
     <!-- Add more project cards here -->
+    <!-- === Einstein’s Riddle Interactive === -->
+<div id="einstein-riddle" class="max-w-4xl mx-auto p-6 bg-white shadow-2xl rounded-2xl mt-10">
+  <h2 class="text-2xl font-bold mb-4 text-center text-indigo-700">🧩 Einstein’s Riddle</h2>
+  <p class="text-gray-700 mb-6 text-center">
+    Five houses in a row. Each has a unique color, nationality, drink, cigar, and pet.
+    Can you figure out <strong>who owns the fish?</strong>
+  </p>
+
+  <div id="riddle-grid" class="overflow-x-auto mb-4">
+    <table class="w-full border-collapse text-sm">
+      <thead>
+        <tr class="bg-indigo-100 text-indigo-900">
+          <th class="p-2 border">House</th>
+          <th class="p-2 border">Color</th>
+          <th class="p-2 border">Nationality</th>
+          <th class="p-2 border">Drink</th>
+          <th class="p-2 border">Cigar</th>
+          <th class="p-2 border">Pet</th>
+        </tr>
+      </thead>
+      <tbody id="riddle-body"></tbody>
+    </table>
+  </div>
+
+  <div class="flex justify-center space-x-4 mt-4">
+    <button id="check-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg">
+      Check Answer
+    </button>
+    <button id="show-solution" class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded-lg">
+      Reveal Solution
+    </button>
+  </div>
+
+  <p id="result-msg" class="text-center font-medium mt-6"></p>
+</div>
+
+<script>
+const categories = {
+  color: ["Yellow", "Blue", "Red", "Green", "White"],
+  nationality: ["Norwegian", "Dane", "Brit", "German", "Swede"],
+  drink: ["Water", "Tea", "Milk", "Coffee", "Beer"],
+  cigar: ["Dunhill", "Blends", "Pall Mall", "Prince", "BlueMaster"],
+  pet: ["Cats", "Horses", "Birds", "Fish", "Dogs"]
+};
+
+const correctOrder = [
+  {color:"Yellow", nationality:"Norwegian", drink:"Water", cigar:"Dunhill", pet:"Cats"},
+  {color:"Blue", nationality:"Dane", drink:"Tea", cigar:"Blends", pet:"Horses"},
+  {color:"Red", nationality:"Brit", drink:"Milk", cigar:"Pall Mall", pet:"Birds"},
+  {color:"Green", nationality:"German", drink:"Coffee", cigar:"Prince", pet:"Fish"},
+  {color:"White", nationality:"Swede", drink:"Beer", cigar:"BlueMaster", pet:"Dogs"}
+];
+
+const tbody = document.getElementById("riddle-body");
+
+for (let i = 0; i < 5; i++) {
+  const row = document.createElement("tr");
+  row.innerHTML = `
+    <td class="border p-2 text-center font-bold">${i + 1}</td>
+    ${Object.keys(categories).map(key =>
+      `<td class="border p-1">
+        <select class="w-full p-1 border rounded">
+          <option value="">Select</option>
+          ${categories[key].map(item => `<option value="${item}">${item}</option>`).join("")}
+        </select>
+      </td>`
+    ).join("")}
+  `;
+  tbody.appendChild(row);
+}
+
+document.getElementById("check-btn").addEventListener("click", () => {
+  const rows = [...tbody.children];
+  let correct = true;
+
+  rows.forEach((row, i) => {
+    const selects = row.querySelectorAll("select");
+    selects.forEach((sel, j) => {
+      const key = Object.keys(categories)[j];
+      if (sel.value !== correctOrder[i][key]) {
+        sel.style.borderColor = "red";
+        correct = false;
+      } else {
+        sel.style.borderColor = "green";
+      }
+    });
+  });
+
+  const result = document.getElementById("result-msg");
+  result.textContent = correct
+    ? "🎉 Correct! The German owns the fish!"
+    : "❌ Not quite right. Try again!";
+  result.className = correct
+    ? "text-green-600 text-center font-bold mt-4"
+    : "text-red-600 text-center font-bold mt-4";
+});
+
+document.getElementById("show-solution").addEventListener("click", () => {
+  const rows = [...tbody.children];
+  rows.forEach((row, i) => {
+    const selects = row.querySelectorAll("select");
+    selects.forEach((sel, j) => {
+      const key = Object.keys(categories)[j];
+      sel.value = correctOrder[i][key];
+      sel.style.borderColor = "green";
+    });
+  });
+  document.getElementById("result-msg").textContent =
+    "✅ Solution shown. The German in the green house owns the fish.";
+});
+</script>
+
+<style>
+#einstein-riddle select {
+  font-size: 0.9rem;
+}
+</style>
+<!-- === End Einstein’s Riddle === -->
+
   </section>
 
   <script src="script.js"></script>
 </body>
 </html>
+
 
