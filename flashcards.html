@@ -71,6 +71,229 @@
   <iframe src="GOL.html" width="100%" height="1000px" style="border:2px solid #b33a4c; border-radius:12px;"></iframe>
 </section>
 
+
+    <!-- === Einstein’s Riddle Interactive === -->
+  <section id="einstein-section" class="info-section">
+    <h2>Einstein’s Riddle</h2>
+    <p>Five houses, each a different color. In each house lives a person with a different nationality. These five owners each drink a different beverage, smoke a different brand of cigar, and keep a different pet. No other overlaps. </p>
+
+<strong>Clues:</strong>
+
+<p>The Brit lives in the red house.</p>
+
+<p>The Swede keeps dogs as pets.</p>
+
+<p>The Dane drinks tea.</p>
+
+<p>The green house is immediately to the left of the white house.</p>
+
+<p>The owner of the green house drinks coffee.</p>
+    
+<p>The person who smokes Pall Mall keeps birds.</p>
+<p>The owner of the yellow house smokes Dunhill.</p>
+<p>The man living in the center house drinks milk.</p>
+<p>The Norwegian lives in the first house (leftmost).</p>
+<p>The man who smokes Blends lives next to the one who keeps cats.</p>
+<p>The man who keeps horses lives next to the man who smokes Dunhill.</p>
+<p>The owner who smokes BlueMaster drinks beer.</p>
+<p>The German smokes Prince.</p>
+<p>The Norwegian lives next to the blue house.</p>
+<p>The man who smokes Blends has a neighbor who drinks water.</p>
+
+
+Question: Who owns the fish?</p>
+
+    <div id="einstein-riddle" class="riddle-box">
+      <table class="riddle-table">
+        <thead>
+          <tr>
+            <th>House</th>
+            <th>Color</th>
+            <th>Nationality</th>
+            <th>Drink</th>
+            <th>Cigar</th>
+            <th>Pet</th>
+          </tr>
+        </thead>
+        <tbody id="riddle-body"></tbody>
+      </table>
+
+      <div class="riddle-buttons">
+        <button id="check-btn">Check Answer</button>
+        <button id="show-solution">Reveal Solution</button>
+      </div>
+
+      <p id="result-msg" class="riddle-result"></p>
+    </div>
+  </section>
+  <!-- === End Einstein’s Riddle === -->
+
+  <script>
+    const categories = {
+      color: ["Yellow", "Blue", "Red", "Green", "White"],
+      nationality: ["Norwegian", "Dane", "Brit", "German", "Swede"],
+      drink: ["Water", "Tea", "Milk", "Coffee", "Beer"],
+      cigar: ["Dunhill", "Blends", "Pall Mall", "Prince", "BlueMaster"],
+      pet: ["Cats", "Horses", "Birds", "Fish", "Dogs"]
+    };
+
+    const correctOrder = [
+      {color:"Yellow", nationality:"Norwegian", drink:"Water", cigar:"Dunhill", pet:"Cats"},
+      {color:"Blue", nationality:"Dane", drink:"Tea", cigar:"Blends", pet:"Horses"},
+      {color:"Red", nationality:"Brit", drink:"Milk", cigar:"Pall Mall", pet:"Birds"},
+      {color:"Green", nationality:"German", drink:"Coffee", cigar:"Prince", pet:"Fish"},
+      {color:"White", nationality:"Swede", drink:"Beer", cigar:"BlueMaster", pet:"Dogs"}
+    ];
+
+    const tbody = document.getElementById("riddle-body");
+
+    for (let i = 0; i < 5; i++) {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${i + 1}</td>
+        ${Object.keys(categories).map(key =>
+          `<td>
+            <select>
+              <option value="">Select</option>
+              ${categories[key].map(item => `<option value="${item}">${item}</option>`).join("")}
+            </select>
+          </td>`
+        ).join("")}
+      `;
+      tbody.appendChild(row);
+    }
+
+    document.getElementById("check-btn").addEventListener("click", () => {
+      const rows = [...tbody.children];
+      let correct = true;
+
+      rows.forEach((row, i) => {
+        const selects = row.querySelectorAll("select");
+        selects.forEach((sel, j) => {
+          const key = Object.keys(categories)[j];
+          if (sel.value !== correctOrder[i][key]) {
+            sel.style.borderColor = "#d9534f";
+            correct = false;
+          } else {
+            sel.style.borderColor = "#5cb85c";
+          }
+        });
+      });
+
+      const result = document.getElementById("result-msg");
+      result.textContent = correct
+        ? "🎉 Correct! The German owns the fish!"
+        : "❌ Not quite right. Try again!";
+      result.style.color = correct ? "#2b9348" : "#d00000";
+    });
+
+    document.getElementById("show-solution").addEventListener("click", () => {
+      const rows = [...tbody.children];
+      rows.forEach((row, i) => {
+        const selects = row.querySelectorAll("select");
+        selects.forEach((sel, j) => {
+          const key = Object.keys(categories)[j];
+          sel.value = correctOrder[i][key];
+          sel.style.borderColor = "#5cb85c";
+        });
+      });
+      document.getElementById("result-msg").textContent =
+        "✅ Solution shown. The German in the green house owns the fish.";
+      document.getElementById("result-msg").style.color = "#2b9348";
+    });
+  </script>
+
+  <style>
+    /* Einstein’s Riddle Styling (fits WISTEM theme) */
+    #einstein-section {
+      background-color: #fafafa;
+      padding: 60px 20px;
+      text-align: center;
+      border-top: 2px solid #ddd;
+      margin-top: 40px;
+    }
+
+    #einstein-section h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1.8rem;
+      color: #3c3c84;
+      margin-bottom: 10px;
+    }
+
+    #einstein-section p {
+      font-family: 'Merriweather', serif;
+      max-width: 600px;
+      margin: 0 auto 25px;
+      color: #333;
+    }
+
+    .riddle-box {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      padding: 25px;
+      max-width: 900px;
+      margin: 0 auto;
+      overflow-x: auto;
+    }
+
+    .riddle-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'Merriweather', serif;
+      margin-bottom: 20px;
+    }
+
+    .riddle-table th, .riddle-table td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: center;
+    }
+
+    .riddle-table th {
+      background-color: #e8e8f9;
+      font-family: 'Montserrat', sans-serif;
+      color: #333;
+    }
+
+    .riddle-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .riddle-buttons button {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #3c3c84;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .riddle-buttons button:hover {
+      background-color: #5656a1;
+    }
+
+    .riddle-result {
+      margin-top: 20px;
+      font-weight: bold;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    select {
+      font-family: 'Merriweather', serif;
+      padding: 5px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      width: 100%;
+      text-align: center;
+    }
+  </style>
+
   
      <div class="interact-card">
       <h3>For further queries, Mail us at</h3>
@@ -93,5 +316,6 @@
 
 </body>
 </html>
+
 
 
