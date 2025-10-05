@@ -1,92 +1,166 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Conway's Game of Life</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conway's Game of Life - WISTEM Interactables</title>
   <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #faf8f9;
+      color: #333;
+      text-align: center;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #b33a4c;
+      margin-bottom: 10px;
+    }
+
+    p {
+      max-width: 600px;
+      margin: 0 auto 25px;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
     canvas {
       border: 2px solid #b33a4c;
+      background-color: white;
       display: block;
       margin: 20px auto;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      cursor: pointer;
     }
+
     #controls {
-      text-align: center;
-      margin-bottom: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 25px;
     }
-    #speed {
-      width: 200px;
-      margin-left: 10px;
+
+    button {
+      background-color: #b33a4c;
+      border: none;
+      color: white;
+      padding: 8px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: background-color 0.2s;
     }
+
+    button:hover {
+      background-color: #922d3c;
+    }
+
+    input[type="range"] {
+      width: 180px;
+      accent-color: #b33a4c;
+      cursor: pointer;
+    }
+
     #speed-value {
       font-weight: bold;
-      margin-left: 10px;
+      color: #b33a4c;
     }
   </style>
 </head>
 <body>
+
+  <h1>🧬 Conway’s Game of Life</h1>
+  <p>Click on cells to bring them to life, then press <strong>Start</strong> to watch simple rules create mesmerizing patterns.  
+     A small taste of how complexity can emerge from simplicity — a reflection of life itself.</p>
+
   <div id="controls">
     <button id="startStop">Start</button>
+    <button id="randomize">Randomize</button>
+    <button id="clear">Clear</button>
     <label for="speed">Speed:</label>
-    <input type="range" id="speed" min="100" max="1000" step="50" value="500">
-    <span id="speed-value">500 ms</span>
+    <input type="range" id="speed" min="100" max="1000" step="50" value="400">
+    <span id="speed-value">400 ms</span>
   </div>
-  <canvas id="gameCanvas" width="400" height="400"></canvas>
+
+  <canvas id="gameCanvas" width="500" height="500"></canvas>
 
   <script>
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
-    const rows = 20;
-    const cols = 20;
+    const rows = 25;
+    const cols = 25;
     const cellSize = canvas.width / cols;
     let grid = Array.from({ length: rows }, () => Array(cols).fill(0));
-    
-    // Randomize initial grid
+
     function randomizeGrid() {
       for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
-          grid[r][c] = Math.random() > 0.7 ? 1 : 0;
+          grid[r][c] = Math.random() > 0.75 ? 1 : 0;
         }
       }
     }
-    
+
+    function clearGrid() {
+      grid = Array.from({ length: rows }, () => Array(cols).fill(0));
+      drawGrid();
+    }
+
     function drawGrid() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
           ctx.fillStyle = grid[r][c] ? '#b33a4c' : '#fff';
-          ctx.fillRect(c*cellSize, r*cellSize, cellSize-1, cellSize-1);
+          ctx.fillRect(c * cellSize, r * cellSize, cellSize - 1, cellSize - 1);
         }
       }
     }
-    
+
     function updateGrid() {
       const next = grid.map(arr => [...arr]);
       for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
           let neighbors = 0;
-          for (let i=-1; i<=1; i++) {
-            for (let j=-1; j<=1; j++) {
-              if(i===0 && j===0) continue;
-              const nr = r+i, nc = c+j;
-              if(nr>=0 && nr<rows && nc>=0 && nc<cols) neighbors += grid[nr][nc];
+          for (let i = -1; i <= 1; i++) {
+            for (let j = -1; j <= 1; j++) {
+              if (i === 0 && j === 0) continue;
+              const nr = r + i, nc = c + j;
+              if (nr >= 0 && nr < rows && nc >= 0 && nc < cols)
+                neighbors += grid[nr][nc];
             }
           }
-          if(grid[r][c] && (neighbors<2 || neighbors>3)) next[r][c] = 0;
-          if(!grid[r][c] && neighbors===3) next[r][c] = 1;
+          if (grid[r][c] && (neighbors < 2 || neighbors > 3)) next[r][c] = 0;
+          if (!grid[r][c] && neighbors === 3) next[r][c] = 1;
         }
       }
       grid = next;
       drawGrid();
     }
-    
+
+    function toggleCell(event) {
+      const rect = canvas.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+      const c = Math.floor(x / cellSize);
+      const r = Math.floor(y / cellSize);
+      grid[r][c] = grid[r][c] ? 0 : 1;
+      drawGrid();
+    }
+
     randomizeGrid();
     drawGrid();
 
-    let interval = 500;
+    let interval = 400;
     let simulation;
 
     const speedSlider = document.getElementById('speed');
     const speedValue = document.getElementById('speed-value');
     const startStopBtn = document.getElementById('startStop');
+    const randomizeBtn = document.getElementById('randomize');
+    const clearBtn = document.getElementById('clear');
 
     function startSimulation() {
       clearInterval(simulation);
@@ -96,18 +170,27 @@
 
     function stopSimulation() {
       clearInterval(simulation);
+      simulation = null;
       startStopBtn.textContent = "Start";
     }
 
     startStopBtn.addEventListener('click', () => {
-      if(simulation) stopSimulation();
-      else startSimulation();
+      simulation ? stopSimulation() : startSimulation();
     });
+
+    randomizeBtn.addEventListener('click', () => {
+      randomizeGrid();
+      drawGrid();
+    });
+
+    clearBtn.addEventListener('click', clearGrid);
+
+    canvas.addEventListener('click', toggleCell);
 
     speedSlider.addEventListener('input', () => {
       interval = parseInt(speedSlider.value);
       speedValue.textContent = interval + " ms";
-      if(simulation) startSimulation(); // restart with new speed
+      if (simulation) startSimulation(); // restart at new speed
     });
   </script>
 </body>
