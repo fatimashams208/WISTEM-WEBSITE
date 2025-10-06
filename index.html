@@ -1,91 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WISTEM</title>
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800&family=Merriweather&display=swap" rel="stylesheet">
-
-  <!-- Tailwind CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <style>
-    body {
-      font-family: 'Merriweather', serif;
-      background: #0f0f1f;
-      color: #fff;
-    }
-    h1, h2, h3 {
-      font-family: 'Montserrat', sans-serif;
-    }
-    header a:hover {
-      color: #fbbf24;
-      transition: 0.3s;
-    }
-  </style>
-</head>
-<body class="scroll-smooth">
-
-<!-- Header -->
-<header class="sticky top-0 bg-black/80 backdrop-blur-md flex justify-between items-center px-6 py-4 z-50 shadow-md">
-  <h1 class="text-3xl font-bold text-indigo-400">WISTEM</h1>
-  <nav class="space-x-6 text-white font-semibold">
-    <a href="index.html">Home</a>
-    <a href="Podcast page.html">Podcast</a>
-    <a href="projects.html">Projects</a>
-    <a href="flashcards.html">Interactables</a>
-  </nav>
-</header>
-
-<!-- What is WISTEM Section -->
-<section class="py-16 px-6 md:px-16 text-center">
-  <h2 class="text-4xl font-bold mb-4 text-indigo-300">What is WISTEM?</h2>
-  <p class="text-gray-300 max-w-3xl mx-auto leading-relaxed text-lg">
-    WISTEM is a school initiative that encourages students, especially girls, to explore <strong>Science, Technology, Engineering, and Mathematics (STEM)</strong> through hands-on projects, workshops, and events. It aims to make STEM accessible, fun, and inspiring for everyone.
-  </p>
-</section>
-
-<!-- About Us Section -->
-<section class="py-16 px-6 md:px-16 bg-gray-900/40 text-center">
-  <h2 class="text-4xl font-bold mb-6 text-pink-300">About Us</h2>
-  <p class="text-gray-200 max-w-3xl mx-auto mb-4 leading-relaxed">We are a team of high school students passionate about STEM who created this club to combine our love for science with tools that make learning interactive and fun.</p>
-  <p class="text-gray-200 max-w-3xl mx-auto mb-4 leading-relaxed">From podcasts to projects done as the WISTEM club of <strong>R.N. PODAR SCHOOL</strong>, our site is a way of sharing knowledge, inspiring curiosity, and encouraging others to explore the fascinating world of STEM.</p>
-  <p class="text-gray-200 max-w-3xl mx-auto leading-relaxed">As members and ambassadors of <strong>one of only two WISTEM clubs in India</strong>, we would love for you to be a part of this small step towards equitable education and learning beyond textbooks!</p>
-</section>
-
-<!-- Women in STEM Section -->
-<section class="py-20 px-6 md:px-16 bg-gradient-to-br from-indigo-900 via-purple-900 to-black text-white">
+<section class="women-in-stem py-20 bg-gradient-to-br from-indigo-900 via-purple-900 to-black text-white">
   <div class="text-center mb-12">
     <h2 class="text-4xl md:text-5xl font-bold mb-4 tracking-wide">🌟 Women Who Changed STEM</h2>
     <p class="text-gray-300 max-w-2xl mx-auto">Six extraordinary women whose ideas reshaped science, technology, and our understanding of the universe.</p>
   </div>
 
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-    <!-- Example Card -->
-    <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 hover:scale-105 hover:shadow-lg hover:shadow-pink-500/40 transition-all duration-500">
-      <img src="images/marie_curie.jpg" alt="Marie Curie" class="rounded-full w-32 h-32 mx-auto mb-4 border-4 border-pink-300">
-      <h3 class="text-2xl font-semibold text-pink-300 mb-2 text-center">Marie Curie</h3>
-      <p class="italic text-gray-300 mb-3 text-center">The Pioneer of Radioactivity</p>
-      <p class="text-gray-200 text-center">The first person ever to win <b>two Nobel Prizes</b>, Curie discovered <b>polonium</b> and <b>radium</b>, revolutionizing physics and medicine.</p>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 px-6 md:px-16">
+    <!-- Card Template -->
+    <div class="group relative bg-white/5 p-6 rounded-3xl border border-white/10 hover:bg-white/10 hover:shadow-lg hover:shadow-indigo-400/30 transition-all duration-500 backdrop-blur-md">
+      <img src="images/marie_curie.jpg" alt="Marie Curie" class="w-28 h-28 mx-auto rounded-full mb-4 border-2 border-pink-300 transition-transform duration-300 group-hover:scale-105">
+      <h3 class="text-2xl font-semibold mb-2 text-pink-300 text-center">Marie Curie</h3>
+      <p class="italic text-sm mb-3 text-gray-300 text-center">The Pioneer of Radioactivity</p>
+      <p class="text-gray-200 text-center leading-relaxed">The first person ever to win <b>two Nobel Prizes</b>, Curie discovered <b>polonium</b> and <b>radium</b>, revolutionizing physics and medicine.</p>
     </div>
-    <!-- Repeat similar card structure for Emmy Noether, Katherine Johnson, Rosalind Franklin, Ada Lovelace, Kalpana Chawla -->
+
+    <div class="group relative bg-white/5 p-6 rounded-3xl border border-white/10 hover:bg-white/10 hover:shadow-lg hover:shadow-blue-400/30 transition-all duration-500 backdrop-blur-md">
+      <img src="images/emmy_noether.jpg" alt="Emmy Noether" class="w-28 h-28 mx-auto rounded-full mb-4 border-2 border-blue-300 transition-transform duration-300 group-hover:scale-105">
+      <h3 class="text-2xl font-semibold mb-2 text-blue-300 text-center">Emmy Noether</h3>
+      <p class="italic text-sm mb-3 text-gray-300 text-center">The Mathematician Who Found Nature’s Hidden Symmetry</p>
+      <p class="text-gray-200 text-center leading-relaxed">Her <b>Noether’s Theorem</b> connected every symmetry in nature to a <b>law of conservation</b>, forming the backbone of modern physics.</p>
+    </div>
+
+    <div class="group relative bg-white/5 p-6 rounded-3xl border border-white/10 hover:bg-white/10 hover:shadow-lg hover:shadow-yellow-400/30 transition-all duration-500 backdrop-blur-md">
+      <img src="images/katherine_johnson.jpg" alt="Katherine Johnson" class="w-28 h-28 mx-auto rounded-full mb-4 border-2 border-yellow-300 transition-transform duration-300 group-hover:scale-105">
+      <h3 class="text-2xl font-semibold mb-2 text-yellow-300 text-center">Katherine Johnson</h3>
+      <p class="italic text-sm mb-3 text-gray-300 text-center">The Human Computer Who Sent Us to Space</p>
+      <p class="text-gray-200 text-center leading-relaxed">Her precise NASA calculations made the <b>Apollo 11 Moon landing</b> possible, proving that brilliance knows no boundaries.</p>
+    </div>
+
+    <div class="group relative bg-white/5 p-6 rounded-3xl border border-white/10 hover:bg-white/10 hover:shadow-lg hover:shadow-green-400/30 transition-all duration-500 backdrop-blur-md">
+      <img src="images/rosalind_franklin.jpg" alt="Rosalind Franklin" class="w-28 h-28 mx-auto rounded-full mb-4 border-2 border-green-300 transition-transform duration-300 group-hover:scale-105">
+      <h3 class="text-2xl font-semibold mb-2 text-green-300 text-center">Rosalind Franklin</h3>
+      <p class="italic text-sm mb-3 text-gray-300 text-center">The Unsung Hero of DNA</p>
+      <p class="text-gray-200 text-center leading-relaxed">Her X-ray diffraction work revealed the <b>double-helix structure</b> of DNA — a breakthrough that reshaped genetics forever.</p>
+    </div>
+
+    <div class="group relative bg-white/5 p-6 rounded-3xl border border-white/10 hover:bg-white/10 hover:shadow-lg hover:shadow-purple-400/30 transition-all duration-500 backdrop-blur-md">
+      <img src="images/ada_lovelace.jpg" alt="Ada Lovelace" class="w-28 h-28 mx-auto rounded-full mb-4 border-2 border-purple-300 transition-transform duration-300 group-hover:scale-105">
+      <h3 class="text-2xl font-semibold mb-2 text-purple-300 text-center">Ada Lovelace</h3>
+      <p class="italic text-sm mb-3 text-gray-300 text-center">The First Computer Programmer</p>
+      <p class="text-gray-200 text-center leading-relaxed">In the 1800s, she envisioned machines that could <b>create art, music, and logic</b> — long before computers existed.</p>
+    </div>
+
+    <div class="group relative bg-white/5 p-6 rounded-3xl border border-white/10 hover:bg-white/10 hover:shadow-lg hover:shadow-orange-400/30 transition-all duration-500 backdrop-blur-md">
+      <img src="images/kalpana_chawla.jpg" alt="Kalpana Chawla" class="w-28 h-28 mx-auto rounded-full mb-4 border-2 border-orange-300 transition-transform duration-300 group-hover:scale-105">
+      <h3 class="text-2xl font-semibold mb-2 text-orange-300 text-center">Kalpana Chawla</h3>
+      <p class="italic text-sm mb-3 text-gray-300 text-center">The Star Who Touched the Sky</p>
+      <p class="text-gray-200 text-center leading-relaxed">The <b>first woman of Indian origin in space</b>, Chawla’s journey from Karnal to the cosmos inspires generations to reach for the stars.</p>
+    </div>
   </div>
 </section>
-
-<!-- Members Section -->
-<section class="py-16 px-6 md:px-16 text-center">
-  <h2 class="text-4xl font-bold mb-10 text-yellow-300">Our Team</h2>
-  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
-    <div class="bg-gray-800 rounded-xl p-4 hover:scale-105 transition-transform duration-300">
-      <img src="images/member1.jpg" alt="Fatima Shams" class="rounded-full w-32 h-32 mx-auto mb-4 border-4 border-yellow-300">
-      <h3 class="text-xl font-semibold mb-1">Fatima Shams</h3>
-      <p class="text-gray-300">Co-Ambassador</p>
-    </div>
-    <!-- Repeat member cards -->
-  </div>
-</section>
-
-</body>
-</html>
